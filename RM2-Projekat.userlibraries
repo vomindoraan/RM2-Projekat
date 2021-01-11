@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="outline">
+    <archive path="C:/Users/konst/Projects/RM2-Projekat/lib/outline/org-openide-util-RELEASE122.jar" />
+    <archive path="C:/Users/konst/Projects/RM2-Projekat/lib/outline/org-openide-util-ui-RELEASE122.jar" />
+    <archive path="C:/Users/konst/Projects/RM2-Projekat/lib/outline/org-openide-util-lookup-RELEASE122.jar" />
+    <archive path="C:/Users/konst/Projects/RM2-Projekat/lib/outline/org-netbeans-swing-outline-RELEASE122.jar" />
+  </library>
+  <library name="snmpv3">
+    <archive path="C:/Users/konst/Projects/RM2-Projekat/lib/snmpv3/examples.jar" />
+    <archive path="C:/Users/konst/Projects/RM2-Projekat/lib/snmpv3/ireasoningsnmp.jar" />
+  </library>
+</eclipse-userlibraries>
+

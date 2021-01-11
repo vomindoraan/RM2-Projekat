@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+shopt -s globstar
+javac -d out -cp "lib/snmpv3/*:lib/outline/*" src/**/*.java &&
+java -p out -cp "out:lib/snmpv3/*:lib/outline/*" rs.ac.bg.etf.rm2.dk140414d.projekat.Main
