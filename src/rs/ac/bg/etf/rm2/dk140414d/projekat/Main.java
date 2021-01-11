@@ -11,11 +11,13 @@ import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeNode;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class Main {
@@ -96,7 +98,11 @@ public class Main {
         outline = new Outline(outlineModel);
         outline.setDefaultRenderer(Boolean.class, new SNMPCellRenderer());
         outline.setRootVisible(true);
-        // TODO: Expand router nodes
+        SNMPTreeNode root = (SNMPTreeNode) outlineModel.getRoot();
+        for (Enumeration e = root.children(); e.hasMoreElements(); ) {
+            SNMPTreeNode child = (SNMPTreeNode) e.nextElement();
+            outline.expandPath(new TreePath(child.getPath()));
+        }
 
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(outline);
