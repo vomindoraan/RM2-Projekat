@@ -30,6 +30,14 @@ public class SNMPTreeTable extends Outline {
         setModel(model);
 
         setDefaultRenderer(InterfaceStatus.class, new InterfaceStatusCellRenderer());
+
+        for (SnmpTableModel tm : tableModels) {
+            tm.addTableModelListener(e -> tableChanged());
+        }
+    }
+
+    public void tableChanged() {
+        tableChanged(new TableModelEvent(model));
     }
 
     public void expandAll() {
@@ -38,10 +46,6 @@ public class SNMPTreeTable extends Outline {
             SNMPTreeNode child = (SNMPTreeNode) e.nextElement();
             expandPath(new TreePath(child.getPath()));
         }
-    }
-
-    public void tableChanged() {
-        tableChanged(new TableModelEvent(model));
     }
 
     private SNMPTreeNode createNodes() {

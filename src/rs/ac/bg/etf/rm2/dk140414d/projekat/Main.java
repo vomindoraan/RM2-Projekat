@@ -65,10 +65,6 @@ public class Main {
 
     public Main(List<SnmpTableModel> tableModels) {
         this.tableModels = tableModels;
-        for (SnmpTableModel tm : tableModels) {
-            tm.addTableModelListener(e -> treeTable.tableChanged());
-        }
-
         initComponents();
     }
 
