@@ -11,12 +11,12 @@ import static rs.ac.bg.etf.rm2.dk140414d.projekat.Main.HOSTNAMES;
 public class SNMPTreeTableModel extends DefaultOutlineModel {
     public SNMPTreeTableModel(List<SnmpTableModel> tableModels) {
         super(
-                new DefaultTreeModel(createNodes(tableModels)),
+                new DefaultTreeModel(createTree(tableModels)),
                 new SNMPRowModel(tableModels),
                 false, null);
     }
 
-    private static SNMPTreeNode createNodes(List<SnmpTableModel> tableModels) {
+    private static SNMPTreeNode createTree(List<SnmpTableModel> tableModels) {
         SNMPTreeNode root = new SNMPTreeNode("Routers");
         for (int i = 0; i < HOSTNAMES.length; i++) {
             RouterTreeNode router = new RouterTreeNode(i + 1, HOSTNAMES[i]);
