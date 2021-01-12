@@ -21,10 +21,14 @@ public class SNMPTreeTableModel extends DefaultOutlineModel {
         for (int i = 0; i < HOSTNAMES.length; i++) {
             RouterTreeNode router = new RouterTreeNode(i + 1, HOSTNAMES[i]);
             root.add(router);
-            for (int j = 0; j < tableModels.get(i).getRowCount(); j++) {
-                String valueStr = (String) tableModels.get(i).getValueAt(j, 0);
-                int ifIndex = Integer.parseInt(valueStr);
-                router.add(new InterfaceTreeNode(ifIndex));
+
+            SnmpTableModel tableModel = tableModels.get(i);
+            synchronized (tableModel) {
+                for (int j = 0; j < tableModel.getRowCount(); j++) {
+                    String valueStr = (String) tableModel.getValueAt(j, 0);
+                    int ifIndex = Integer.parseInt(valueStr);
+                    router.add(new InterfaceTreeNode(ifIndex));
+                }
             }
         }
         return root;
