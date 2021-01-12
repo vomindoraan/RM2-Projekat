@@ -24,6 +24,7 @@ public class SNMPTreeTable extends Outline {
         setModel(model = new SNMPTreeTableModel(tableModels));
         setDefaultRenderer(InterfaceStatus.class, new InterfaceStatusCellRenderer());
 
+        // TODO: Update tree when interfaces are added/removed
         for (SnmpTableModel tm : tableModels) {
             tm.addTableModelListener(e -> tableChanged());
         }
