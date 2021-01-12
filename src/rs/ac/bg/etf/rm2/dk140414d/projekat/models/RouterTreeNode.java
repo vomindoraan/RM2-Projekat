@@ -1,7 +1,7 @@
 package rs.ac.bg.etf.rm2.dk140414d.projekat.models;
 
 public class RouterTreeNode extends SNMPTreeNode {
-    private final int routerIndex;
+    private final int    routerIndex;
     private final String hostname;
 
     public RouterTreeNode(int routerIndex, String hostname) {
