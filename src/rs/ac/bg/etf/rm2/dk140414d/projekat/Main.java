@@ -3,8 +3,12 @@ package rs.ac.bg.etf.rm2.dk140414d.projekat;
 import com.ireasoning.protocol.snmp.SnmpConst;
 import com.ireasoning.protocol.snmp.SnmpSession;
 import com.ireasoning.protocol.snmp.SnmpTableModel;
+import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeTableModel;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,6 +66,7 @@ public class Main {
     }
 
     private List<SnmpTableModel> tableModels;
+    private SNMPTreeTableModel   treeTableModel;
     private SNMPTreeTable        treeTable;
     private JScrollPane          scrollPane;
     private JPanel               panel;
@@ -80,7 +85,8 @@ public class Main {
 //        sp.setViewportView(table);
 //        panel.add(sp, BorderLayout.NORTH);
 
-        treeTable = new SNMPTreeTable(tableModels);
+        treeTableModel = new SNMPTreeTableModel(HOSTNAMES, tableModels);
+        treeTable = new SNMPTreeTable(treeTableModel);
         treeTable.expandAll();
 
         scrollPane = new JScrollPane();

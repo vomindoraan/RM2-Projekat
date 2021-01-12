@@ -1,6 +1,5 @@
 package rs.ac.bg.etf.rm2.dk140414d.projekat;
 
-import com.ireasoning.protocol.snmp.SnmpTableModel;
 import org.netbeans.swing.outline.DefaultOutlineCellRenderer;
 import org.netbeans.swing.outline.Outline;
 import rs.ac.bg.etf.rm2.dk140414d.projekat.models.InterfaceStatus;
@@ -9,29 +8,18 @@ import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeTableModel;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.event.TableModelEvent;
 import javax.swing.tree.TreePath;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Enumeration;
-import java.util.List;
 
 public class SNMPTreeTable extends Outline {
     private final SNMPTreeTableModel model;
 
-    public SNMPTreeTable(List<SnmpTableModel> tableModels) {
-        super();
-        setModel(model = new SNMPTreeTableModel(tableModels));
+    public SNMPTreeTable(SNMPTreeTableModel model) {
+        super(model);
+        this.model = model;
         setDefaultRenderer(InterfaceStatus.class, new InterfaceStatusCellRenderer());
-
-        // TODO: Update tree when interfaces are added/removed
-        for (SnmpTableModel tm : tableModels) {
-            tm.addTableModelListener(e -> tableChanged());
-        }
-    }
-
-    public void tableChanged() {
-        tableChanged(new TableModelEvent(model));
     }
 
     public void expandAll() {
