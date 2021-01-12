@@ -4,6 +4,7 @@ import com.ireasoning.protocol.snmp.SnmpConst;
 import com.ireasoning.protocol.snmp.SnmpSession;
 import com.ireasoning.protocol.snmp.SnmpTableModel;
 import org.netbeans.swing.outline.*;
+import rs.ac.bg.etf.rm2.dk140414d.projekat.models.InterfaceStatus;
 import rs.ac.bg.etf.rm2.dk140414d.projekat.models.InterfaceTreeNode;
 import rs.ac.bg.etf.rm2.dk140414d.projekat.models.RouterTreeNode;
 import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeNode;
@@ -96,7 +97,7 @@ public class Main {
 //        panel.add(sp, BorderLayout.NORTH);
 
         outline = new Outline(outlineModel);
-        outline.setDefaultRenderer(Boolean.class, new SNMPCellRenderer());
+        outline.setDefaultRenderer(InterfaceStatus.class, new InterfaceStatusCellRenderer());
         outline.setRootVisible(true);
         SNMPTreeNode root = (SNMPTreeNode) outlineModel.getRoot();
         for (Enumeration e = root.children(); e.hasMoreElements(); ) {
@@ -139,7 +140,7 @@ public class Main {
 //                    return Long.class;
                 case 5:  // ifAdminStatus
                 case 6:  // ifOperStatus
-                    return Boolean.class;
+                    return InterfaceStatus.class;
                 default:
                     return String.class;
             }
@@ -168,14 +169,14 @@ public class Main {
         }
     }
 
-    private static class SNMPCellRenderer extends DefaultOutlineCellRenderer {
+    private static class InterfaceStatusCellRenderer extends DefaultOutlineCellRenderer {
         @Override
         public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel ret = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (value instanceof Boolean) {
+            if (value instanceof InterfaceStatus) {
                 ret.setText("⬤");
-                ret.setForeground((Boolean) value ? Color.GREEN : Color.RED);
+                ret.setForeground(value == InterfaceStatus.UP ? Color.GREEN : Color.RED);
             }
             return ret;
         }

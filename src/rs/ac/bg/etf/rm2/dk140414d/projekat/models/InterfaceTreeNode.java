@@ -36,13 +36,10 @@ public class InterfaceTreeNode extends SNMPTreeNode {
 
 //        return tableModel.getValueAt(row, column);
         Object value = tableModel.getValueAt(row, column);
-        switch ((String) value) {
-            case "up":
-                return Boolean.TRUE;
-            case "down":
-                return Boolean.FALSE;
-            default:
-                return value;
+        try {
+            return InterfaceStatus.valueOf(((String) value).toUpperCase());
+        } catch (IllegalArgumentException | ClassCastException e) {
+            return value;
         }
     }
 }
