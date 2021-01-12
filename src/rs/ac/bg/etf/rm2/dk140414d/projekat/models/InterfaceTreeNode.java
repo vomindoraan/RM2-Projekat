@@ -21,25 +21,26 @@ public class InterfaceTreeNode extends SNMPTreeNode {
         RouterTreeNode parent = (RouterTreeNode) getParent();
         SnmpTableModel tableModel = tableModels.get(parent.getRouterIndex() - 1);
 
-        int row = -1;
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            String valueStr = (String) tableModel.getValueAt(i, 0);
-            int ifIndex = Integer.parseInt(valueStr);
-            if (ifIndex == interfaceIndex) {
-                row = i;
-                break;
+        synchronized (tableModel) {
+            int row = -1;
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                String valueStr = (String) tableModel.getValueAt(i, 0);
+                int ifIndex = Integer.parseInt(valueStr);
+                if (ifIndex == interfaceIndex) {
+                    row = i;
+                    break;
+                }
             }
-        }
-        if (row == -1) {
-            return null;
-        }
+            if (row == -1) {
+                return null;
+            }
 
-//        return tableModel.getValueAt(row, column);
-        Object value = tableModel.getValueAt(row, column);
-        try {
-            return InterfaceStatus.valueOf(((String) value).toUpperCase());
-        } catch (IllegalArgumentException | ClassCastException e) {
-            return value;
+            Object value = tableModel.getValueAt(row, column);
+            try {
+                return InterfaceStatus.valueOf(((String) value).toUpperCase());
+            } catch (IllegalArgumentException | ClassCastException e) {
+                return value;
+            }
         }
     }
 }
