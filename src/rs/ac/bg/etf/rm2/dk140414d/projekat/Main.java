@@ -3,22 +3,11 @@ package rs.ac.bg.etf.rm2.dk140414d.projekat;
 import com.ireasoning.protocol.snmp.SnmpConst;
 import com.ireasoning.protocol.snmp.SnmpSession;
 import com.ireasoning.protocol.snmp.SnmpTableModel;
-import org.netbeans.swing.outline.*;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.InterfaceStatus;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.InterfaceTreeNode;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.RouterTreeNode;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeNode;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 public class Main {
@@ -70,19 +59,15 @@ public class Main {
     }
 
     private List<SnmpTableModel> tableModels;
-    private OutlineModel outlineModel;
-    private Outline outline;
+    private SNMPTreeTable treeTable;
     private JScrollPane scrollPane;
     private JPanel panel;
 
     public Main(List<SnmpTableModel> tableModels) {
         this.tableModels = tableModels;
         for (SnmpTableModel tm : tableModels) {
-            tm.addTableModelListener(e -> outline.tableChanged(new TableModelEvent(outlineModel)));
+            tm.addTableModelListener(e -> treeTable.tableChanged());
         }
-
-        DefaultTreeModel treeModel = new DefaultTreeModel(createNodes());
-        outlineModel = DefaultOutlineModel.createOutlineModel(treeModel, new SNMPRowModel());
 
         initComponents();
     }
@@ -96,89 +81,11 @@ public class Main {
 //        sp.setViewportView(table);
 //        panel.add(sp, BorderLayout.NORTH);
 
-        outline = new Outline(outlineModel);
-        outline.setDefaultRenderer(InterfaceStatus.class, new InterfaceStatusCellRenderer());
-        outline.setRootVisible(true);
-        SNMPTreeNode root = (SNMPTreeNode) outlineModel.getRoot();
-        for (Enumeration e = root.children(); e.hasMoreElements(); ) {
-            SNMPTreeNode child = (SNMPTreeNode) e.nextElement();
-            outline.expandPath(new TreePath(child.getPath()));
-        }
+        treeTable = new SNMPTreeTable(tableModels);
+        treeTable.expandAll();
 
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(outline);
+        scrollPane.setViewportView(treeTable);
         panel.add(scrollPane, BorderLayout.CENTER);
-    }
-
-    private SNMPTreeNode createNodes() {
-        SNMPTreeNode root = new SNMPTreeNode("Routers");
-        for (int i = 0; i < HOSTNAMES.length; i++) {
-            RouterTreeNode router = new RouterTreeNode(i + 1, HOSTNAMES[i]);
-            root.add(router);
-            for (int j = 0; j < tableModels.get(i).getRowCount(); j++) {
-                String valueStr = (String) tableModels.get(i).getValueAt(j, 0);
-                int ifIndex = Integer.parseInt(valueStr);
-                router.add(new InterfaceTreeNode(ifIndex));
-            }
-        }
-        return root;
-    }
-
-    private class SNMPRowModel implements RowModel {
-
-        @Override
-        public int getColumnCount() {
-            return 10;
-        }
-
-        @Override
-        public Class getColumnClass(int column) {
-            switch (column) {
-//                case 2:  // ifMtu
-//                    return Integer.class;
-//                case 3:  // ifSpeed
-//                    return Long.class;
-                case 5:  // ifAdminStatus
-                case 6:  // ifOperStatus
-                    return InterfaceStatus.class;
-                default:
-                    return String.class;
-            }
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            if (column == 9) column += 5;
-            return tableModels.get(0).getColumnName(column + 1);
-        }
-
-        @Override
-        public Object getValueFor(Object node, int column) {
-            if (column == 9) column += 5;
-            return ((SNMPTreeNode) node).getValue(tableModels, column + 1);
-        }
-
-        @Override
-        public void setValueFor(Object node, int column, Object value) {
-            throw new UnsupportedOperationException("Setting values through SNMPRowModel is not supported");
-        }
-
-        @Override
-        public boolean isCellEditable(Object node, int column) {
-            return false;
-        }
-    }
-
-    private static class InterfaceStatusCellRenderer extends DefaultOutlineCellRenderer {
-        @Override
-        public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            JLabel ret = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (value instanceof InterfaceStatus) {
-                ret.setText("⬤");
-                ret.setForeground(value == InterfaceStatus.UP ? Color.GREEN : Color.RED);
-            }
-            return ret;
-        }
     }
 }
