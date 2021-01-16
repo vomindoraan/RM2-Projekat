@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.rm2.dk140414d.projekat.models;
+package rs.ac.bg.etf.rm2.projekat2021.v1.models;
 
 public class RouterTreeNode extends SNMPTreeNode {
     private final int    routerIndex;

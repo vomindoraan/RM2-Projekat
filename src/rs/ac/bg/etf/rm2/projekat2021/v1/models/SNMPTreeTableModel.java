@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.rm2.dk140414d.projekat.models;
+package rs.ac.bg.etf.rm2.projekat2021.v1.models;
 
 import com.ireasoning.protocol.snmp.SnmpTableModel;
 import org.netbeans.swing.outline.DefaultOutlineModel;

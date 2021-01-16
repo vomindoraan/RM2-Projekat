@@ -1,9 +1,9 @@
-package rs.ac.bg.etf.rm2.dk140414d.projekat;
+package rs.ac.bg.etf.rm2.projekat2021.v1;
 
 import com.ireasoning.protocol.snmp.SnmpConst;
 import com.ireasoning.protocol.snmp.SnmpSession;
 import com.ireasoning.protocol.snmp.SnmpTableModel;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeTableModel;
+import rs.ac.bg.etf.rm2.projekat2021.v1.models.SNMPTreeTableModel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -66,7 +66,7 @@ public class Main {
     }
 
     private List<SnmpTableModel> tableModels;
-    private SNMPTreeTableModel   treeTableModel;
+    private SNMPTreeTableModel treeTableModel;
     private SNMPTreeTable        treeTable;
     private JScrollPane          scrollPane;
     private JPanel               panel;

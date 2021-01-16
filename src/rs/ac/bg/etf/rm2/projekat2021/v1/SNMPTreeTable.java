@@ -1,10 +1,10 @@
-package rs.ac.bg.etf.rm2.dk140414d.projekat;
+package rs.ac.bg.etf.rm2.projekat2021.v1;
 
 import org.netbeans.swing.outline.DefaultOutlineCellRenderer;
 import org.netbeans.swing.outline.Outline;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.InterfaceStatus;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeNode;
-import rs.ac.bg.etf.rm2.dk140414d.projekat.models.SNMPTreeTableModel;
+import rs.ac.bg.etf.rm2.projekat2021.v1.models.InterfaceStatus;
+import rs.ac.bg.etf.rm2.projekat2021.v1.models.SNMPTreeNode;
+import rs.ac.bg.etf.rm2.projekat2021.v1.models.SNMPTreeTableModel;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
